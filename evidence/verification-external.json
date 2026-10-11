@@ -1,0 +1,62 @@
+{
+  "executed_at_utc": "2026-10-11T20:02:33.697306+00:00",
+  "scope": "VPS própria de teste, cliente externo; endereço e credenciais omitidos",
+  "ipv6": "VPS sem endereço IPv6 global; não houve teste externo IPv6",
+  "checks": [
+    {
+      "check": "TCP 22",
+      "result": "CONNECTED",
+      "status": "PASS"
+    },
+    {
+      "check": "TCP 80",
+      "result": "CONNECTED",
+      "status": "PASS"
+    },
+    {
+      "check": "TCP 443",
+      "result": "CONNECTED",
+      "status": "PASS"
+    },
+    {
+      "check": "TCP 111",
+      "result": "TIMEOUT_OR_FILTERED",
+      "status": "PASS"
+    },
+    {
+      "check": "TCP 5678",
+      "result": "TIMEOUT_OR_FILTERED",
+      "status": "PASS"
+    },
+    {
+      "check": "TCP 5432",
+      "result": "TIMEOUT_OR_FILTERED",
+      "status": "PASS"
+    },
+    {
+      "check": "TCP 19443",
+      "result": "TIMEOUT_OR_FILTERED",
+      "status": "PASS"
+    },
+    {
+      "check": "Redirect externo HTTP para HTTPS",
+      "status": "PASS",
+      "http_status": 301
+    },
+    {
+      "check": "TLS externo validado e painel exige BasicAuth",
+      "status": "PASS",
+      "http_status": 401
+    },
+    {
+      "check": "Painel externo com BasicAuth",
+      "status": "PASS",
+      "http_status": 200
+    },
+    {
+      "check": "Login nativo necessário após BasicAuth",
+      "status": "PASS",
+      "http_status": 401
+    }
+  ]
+}

@@ -1,0 +1,59 @@
+{
+  "executed_at_utc": "2026-10-11T20:01:51.981045+00:00",
+  "scope": "VPS própria OCI de teste; nenhum endereço, hostname pessoal ou segredo",
+  "os": "Ubuntu 26.04 LTS",
+  "architecture": "x86_64",
+  "docker_engine": "29.9.0",
+  "compose": "5.6.0",
+  "services": {
+    "traefik": {
+      "image_reference": "traefik:v3.7.12@sha256:9c2a54d87f76f5c2f5f2682c68394af92fb12c0a2686798d6462a3f84bd78eaf",
+      "status": "running",
+      "health": "not-configured",
+      "user": "0:0",
+      "memory_limit_bytes": 134217728,
+      "memory_and_swap_limit_bytes": 268435456,
+      "published_host_ports": [
+        "80",
+        "443",
+        "19443"
+      ]
+    },
+    "n8n": {
+      "image_reference": "docker.n8n.io/n8nio/n8n:2.42.6@sha256:526daa38b68e923cc00c5280d18b4da5d489f115a73bdbf3b8e452b184197a9a",
+      "status": "running",
+      "health": "healthy",
+      "user": "1000:1000",
+      "memory_limit_bytes": 805306368,
+      "memory_and_swap_limit_bytes": 1610612736,
+      "published_host_ports": []
+    },
+    "postgres": {
+      "image_reference": "postgres:17-alpine@sha256:b0f9560a2de083e2cc7382e75f808c7381a32852a7ec49117deedb300e552b24",
+      "status": "running",
+      "health": "healthy",
+      "user": "",
+      "memory_limit_bytes": 201326592,
+      "memory_and_swap_limit_bytes": 402653184,
+      "published_host_ports": []
+    }
+  },
+  "evidence_provenance": {
+    "audit-before.json": {
+      "sha256": "fdc2673b6bd9761a59473a6b3b421b8f8f469b5c64081925b37c110575310137",
+      "modified_at_utc": "2026-10-11T19:47:00.137098+00:00"
+    },
+    "audit-after.json": {
+      "sha256": "bdb0242b21db2ce54f002e71f5ee552612b847a93fa9bb1bad82d62a70064a98",
+      "modified_at_utc": "2026-10-11T19:55:46.296027+00:00"
+    },
+    "verification-vps.json": {
+      "sha256": "842272c29b3bbe9f9cbad728a7bc1c329e6831ab0cfccf2deb4c1cd387b57682",
+      "modified_at_utc": "2026-10-11T20:01:46.171283+00:00"
+    },
+    "verification-host.json": {
+      "sha256": "bef831a8e3bf8679dac63ff8c3a817992b0870358ab972eba5ecc934541e129f",
+      "modified_at_utc": "2026-10-11T20:01:47.694016+00:00"
+    }
+  }
+}

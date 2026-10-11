@@ -1,0 +1,15 @@
+[
+  {
+    "id": "aresLabWorkflow01",
+    "name": "ARES - webhook sintetico",
+    "active": false,
+    "nodes": [
+      {"id":"hook","name":"Webhook","type":"n8n-nodes-base.webhook","typeVersion":2,"position":[0,0],"webhookId":"ares-lab","parameters":{"httpMethod":"POST","path":"ares-lab","responseMode":"responseNode","options":{}}},
+      {"id":"reply","name":"Resposta","type":"n8n-nodes-base.respondToWebhook","typeVersion":1.4,"position":[280,0],"parameters":{"respondWith":"json","responseBody":"{\"ok\":true,\"lab\":\"ares\"}","options":{}}},
+      {"id":"risk","name":"Comando de risco - nao executar","type":"n8n-nodes-base.executeCommand","typeVersion":1,"position":[0,260],"parameters":{"command":"printf LAB_ONLY"}},
+      {"id":"file","name":"Arquivo de risco - nao executar","type":"n8n-nodes-base.readBinaryFile","typeVersion":1,"position":[280,260],"parameters":{"filePath":"/tmp/lab-only.txt"}}
+    ],
+    "connections": {"Webhook":{"main":[[{"node":"Resposta","type":"main","index":0}]]}},
+    "settings": {"executionOrder":"v1"}
+  }
+]

@@ -1,0 +1,82 @@
+{
+  "Nodes Risk Report": {
+    "risk": "nodes",
+    "sections": [
+      {
+        "title": "Official risky nodes",
+        "description": "This node is part of n8n's official nodes and may be used to fetch and run any arbitrary code in the host system. This may lead to exploits such as remote code execution.",
+        "recommendation": "Consider reviewing the parameters in these nodes, replacing them with app nodes where possible, and not loading unneeded node types with the NODES_EXCLUDE environment variable. See: https://docs.n8n.io/hosting/configuration/environment-variables/",
+        "location": [
+          {
+            "kind": "node",
+            "workflowId": "aresLabWorkflow01",
+            "workflowName": "ARES - webhook sintetico",
+            "nodeId": "risk",
+            "nodeName": "Comando de risco - nao executar",
+            "nodeType": "n8n-nodes-base.executeCommand"
+          }
+        ]
+      }
+    ]
+  },
+  "Filesystem Risk Report": {
+    "risk": "filesystem",
+    "sections": [
+      {
+        "title": "Nodes that interact with the filesystem",
+        "description": "This node reads from and writes to any accessible file in the host filesystem. Sensitive file content may be manipulated through a node operation.",
+        "recommendation": "Consider protecting any sensitive files in the host filesystem, or refactoring the workflow so that it does not require host filesystem interaction.",
+        "location": [
+          {
+            "kind": "node",
+            "workflowId": "aresLabWorkflow01",
+            "workflowName": "ARES - webhook sintetico",
+            "nodeId": "file",
+            "nodeName": "Arquivo de risco - nao executar",
+            "nodeType": "n8n-nodes-base.readBinaryFile"
+          }
+        ]
+      }
+    ]
+  },
+  "Instance Risk Report": {
+    "risk": "instance",
+    "sections": [
+      {
+        "title": "Unprotected webhooks in instance",
+        "description": "This webhook node has the \"Authentication\" field set to \"None\" and is not directly connected to a node to validate the payload. Every unprotected webhook allows your workflow to be called by any third party who knows the webhook URL.",
+        "recommendation": "Consider setting the \"Authentication\" field to an option other than \"None\", or validating the payload with one of the following nodes: n8n-nodes-base.if,n8n-nodes-base.switch,n8n-nodes-base.code,n8n-nodes-base.function,n8n-nodes-base.functionItem.",
+        "location": [
+          {
+            "kind": "node",
+            "workflowId": "aresLabWorkflow01",
+            "workflowName": "ARES - webhook sintetico",
+            "nodeId": "hook",
+            "nodeName": "Webhook",
+            "nodeType": "n8n-nodes-base.webhook"
+          }
+        ]
+      },
+      {
+        "title": "Security settings",
+        "description": "This n8n instance has the following security settings.",
+        "recommendation": "Consider adjusting the security settings for your n8n instance based on your needs. See: https://docs.n8n.io/hosting/configuration/environment-variables/",
+        "settings": {
+          "features": {
+            "communityPackagesEnabled": true,
+            "versionNotificationsEnabled": true,
+            "templatesEnabled": true,
+            "publicApiEnabled": true
+          },
+          "nodes": {
+            "nodesExclude": "n8n-nodes-base.e2eTest, n8n-nodes-base.dynamicCredentialCheck",
+            "nodesInclude": "none"
+          },
+          "telemetry": {
+            "diagnosticsEnabled": true
+          }
+        }
+      }
+    ]
+  }
+}

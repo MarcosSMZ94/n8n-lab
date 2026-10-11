@@ -1,0 +1,14 @@
+# Arquitetura do estado 03. Somente servidor/cliente de laboratório próprios.
+# Instalar como /etc/wireguard/wg0.conf (0600) e gerar as chaves com wg genkey.
+[Interface]
+Address = 10.77.0.1/24
+ListenPort = 51820
+PrivateKey = REPLACE_WITH_LAB_SERVER_PRIVATE_KEY
+
+[Peer]
+PublicKey = REPLACE_WITH_LAB_CLIENT_PUBLIC_KEY
+AllowedIPs = 10.77.0.2/32
+
+# Cliente: Address=10.77.0.2/32, AllowedIPs=10.77.0.0/24,
+# Endpoint=<IP_PUBLICO_DA_VM_PROPRIA>:51820, PersistentKeepalive=25.
+# Não é uma configuração de exit node: nenhum NAT/forward de internet.
