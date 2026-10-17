@@ -72,6 +72,27 @@ O n8n não oferece mais BasicAuth interna desde a versão 1.0. As antigas `N8N_B
 
 O modo de runners é `external`, com token exclusivo e broker somente no loopback do container. Não há runner executando código: os nós Code/Function estão bloqueados neste laboratório. Se precisar de Code no futuro, adicionar um runner externo isolado e revisar a política antes de liberar os nós.
 
+## Aderência às páginas oficiais "Securing n8n" e "Run security audits"
+
+O ponto de partida desta entrega foram as páginas [Security ("Securing n8n")](https://docs.n8n.io/deploy/host-n8n/configure-n8n/security.md) e [Run security audits](https://docs.n8n.io/deploy/host-n8n/configure-n8n/security/run-security-audits.md) da documentação do n8n. A tabela mapeia cada ação recomendada lá ao local exato de implementação neste repositório; o que a documentação oferece e não foi adotado está declarado com o motivo, sem silêncio.
+
+| Ação recomendada na documentação oficial | Onde está implementada aqui | Status |
+|---|---|---|
+| [Run security audits](https://docs.n8n.io/deploy/host-n8n/configure-n8n/security/run-security-audits.md): rodar `n8n audit` (CLI, API ou node) e ler os cinco relatórios de risco | CLI (`n8n audit`) via `scripts/lab.py before` e `after`; relatórios completos em [evidence/audit-before.json](evidence/audit-before.json) e [audit-after.json](evidence/audit-after.json) (e variantes `-vps`); a seção "Auditoria real antes/depois" compara os achados de nodes, filesystem, instance e credentials | Feito |
+| [Set up SSL](https://docs.n8n.io/deploy/host-n8n/configure-n8n/security/set-up-ssl.md): conexões seguras | TLS terminado no Traefik com mínimo 1.2 (`minVersion: VersionTLS12` em [traefik/routes.template.yml](traefik/routes.template.yml)); HTTP redireciona | Feito |
+| [Disable the public API](https://docs.n8n.io/deploy/host-n8n/configure-n8n/security/disable-the-public-api.md) | `N8N_PUBLIC_API_DISABLED: "true"` no [docker-compose.yml](docker-compose.yml); verificação HTTP rejeita chamada sem sessão | Feito |
+| [Block specific nodes](https://docs.n8n.io/deploy/host-n8n/configure-n8n/security/block-specific-nodes.md) | `NODES_EXCLUDE` com 12 tipos (Execute Command, nós de arquivo, SSH, FTP, Code, Function) no [docker-compose.yml](docker-compose.yml) | Feito |
+| [Control telemetry](https://docs.n8n.io/deploy/host-n8n/configure-n8n/security/control-telemetry.md) | `N8N_DIAGNOSTICS_ENABLED: "false"` no n8n e `sendanonymoususage=false` no Traefik | Feito |
+| [Redact execution data](https://docs.n8n.io/deploy/host-n8n/configure-n8n/security/redact-execution-data.md) | `EXECUTIONS_DATA_SAVE_ON_SUCCESS/ERROR=none` com prune de 24 h: mais forte que redação, o payload não é retido | Feito |
+| [Harden task runners](https://docs.n8n.io/deploy/host-n8n/configure-n8n/security/harden-task-runners.md) | `N8N_RUNNERS_MODE=external` com token exclusivo, broker só no loopback do container e `N8N_RUNNERS_TASK_TIMEOUT=60`; sem nós Code neste laboratório | Feito |
+| [Rotate encryption keys](https://docs.n8n.io/deploy/host-n8n/configure-n8n/security/rotate-encryption-keys.md) | `N8N_ENCRYPTION_KEY` nova e aleatória em cada `init`; a rotina periódica de rotação não está automatizada | Parcial |
+| [Manage security policies](https://docs.n8n.io/deploy/host-n8n/configure-n8n/security/manage-security-policies.md): MFA obrigatório instance-wide | Proprietário provisionado por variáveis oficiais; o 2FA nativo não foi imposto por política nesta fixture | Parcial — não imposto |
+| [Configure SSO](https://docs.n8n.io/deploy/host-n8n/configure-n8n/security/configure-sso.md) | Não adotado: SAML/OIDC exigem licença; o papel é coberto por BasicAuth no proxy + login nativo | Fora de escopo — documentado |
+| [Enable SSRF protection](https://docs.n8n.io/deploy/host-n8n/configure-n8n/security/enable-ssrf-protection.md) | Não habilitado: `HTTP Request` permanece disponível e os destinos dependem de análise por workflow | Pendente — declarado |
+| [Verify user emails](https://docs.n8n.io/deploy/host-n8n/configure-n8n/security/verify-user-emails.md) | Registro já fechado (proprietário gerenciado por env, sem SMTP configurado); não se aplica | N/A |
+
+O relatório de **database** previsto na página de auditoria não aparece nos resultados porque a fixture não usa nós SQL (`Execute Query`). A página lista três formas de rodar o audit (CLI, API e node); esta entrega usa a CLI, que independe da API pública — desabilitada por um dos controles acima.
+
 ## Auditoria real antes/depois
 
 Os arquivos em `evidence/` foram produzidos executando **`n8n audit`**, não redigidos como resultados esperados. A baseline usa SQLite em um volume separado e `network_mode: none`, sem portas. O depois usa o PostgreSQL do stack endurecido. As duas instâncias usam a mesma versão e o mesmo ID de workflow; a versão corrigida autentica o webhook e remove os nós de comando/arquivo não utilizados. Nenhum desses nós de risco foi executado.

@@ -11,6 +11,10 @@ Um n8n com a porta 5678 publicada permite contornar o proxy e alcançar diretame
 - Usar role PostgreSQL limitada, segredos aleatórios privados, digests fixos e logs com rotação torna o laboratório reproduzível e reduz privilégios/armazenamento de dados sensíveis. Fixar digest exige atualizar explicitamente quando houver correções.
 - Não salvar payloads de execução reduz exposição de tokens. Como consequência, o audit mantém um aviso de credencial sem uso recente no histórico; o teste HTTP comprova o uso e esse aviso não foi ocultado.
 
+## Aderência à documentação oficial
+
+Os controles partem das páginas [Security](https://docs.n8n.io/deploy/host-n8n/configure-n8n/security.md) e [Run security audits](https://docs.n8n.io/deploy/host-n8n/configure-n8n/security/run-security-audits.md) do n8n. O README traz a tabela de rastreabilidade: ação recomendada → local de implementação → status, incluindo o que a documentação oferece e não foi adotado (SSO por dependência de licença, SSRF pendente, rotação de chave parcial).
+
 ## Validação
 
 Execução real no Docker Desktop Linux local e na VPS própria OCI Ubuntu 26.04, com n8n 2.42.6, Traefik 3.7.12 e PostgreSQL 17.11. A VPS usa Docker Engine 29.9.0/Compose 5.6.0. Auditorias locais: `evidence/audit-before.json` e `audit-after.json`; auditorias na VPS: `audit-before-vps.json` e `audit-after-vps.json`, acompanhadas dos logs brutos.
