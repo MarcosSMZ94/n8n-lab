@@ -1,8 +1,17 @@
 # n8n endurecido com Traefik — laboratório ARES
 
-Implementação para os cards [VPS de laboratório endurecido](https://trello.com/c/qoDdZAAo) e [rede em três estados](https://trello.com/c/hBCoj99o). Entrega para revisão de Marcos, preparada em 11/10/2026, com laboratório local e implantação na VPS de teste fornecida por ele. O conteúdo não foi publicado em GitHub nem anexado/comentado no Trello.
+Laboratório que sobe um n8n endurecido atrás do Traefik com Docker Compose: HTTPS obrigatório com BasicAuth no proxy, login nativo do n8n, banco em rede interna sem portas publicadas, webhook restrito por método/caminho/token e auditoria de segurança antes/depois com evidências reais. Um [diagrama da arquitetura em três estados de exposição](diagrams/n8n-three-states.png) acompanha este repositório.
 
-O Compose sobe Traefik, n8n e PostgreSQL. O painel exige HTTPS, BasicAuth no proxy e login nativo no n8n. A entrada separada de webhook aceita apenas `POST /webhook/ares-lab`; o próprio nó Webhook exige um token de header. n8n e PostgreSQL não publicam portas no host.
+## Início rápido
+
+```bash
+git clone https://github.com/MarcosSMZ94/n8n-lab.git
+cd n8n-lab
+python scripts/lab.py init
+python scripts/lab.py up
+```
+
+Abra **https://localhost:18443/**: sem credenciais, a resposta é 401 do BasicAuth do Traefik; depois, exige o login nativo do n8n. As duas credenciais ficam em `.local/access.json`. Requisitos, aviso sobre a fixture e comandos de parada: [Executar](#executar).
 
 ## Executar
 
@@ -45,6 +54,8 @@ Todos os comandos Compose operam apenas neste projeto. Não há `--remove-orphan
 | PostgreSQL | TCP 5432 | Nenhuma publicação |
 
 `proxy` conecta apenas Traefik e n8n. `database`, com `internal: true`, conecta apenas n8n e PostgreSQL. O Traefik não está na rede do banco. A rede do proxy permite saída para os serviços externos usados por workflows; o laboratório não constitui uma política completa de bloqueio de saída/SSRF.
+
+Sobre `PROXY_UID=0`: o default existe para Docker Desktop, onde arquivos montados do Windows não têm dono igual ao do container. No Linux, `init` troca o valor pelo UID/GID de quem o executou, para o Traefik — sem capabilities — conseguir ler o certificado e o arquivo de usuários 0600. O processo no container só escuta portas altas (8080/8443/9443); o bind de 80/443 no host do perfil VPS é feito pelo dockerd, não pelo Traefik. Com `cap_drop: ALL`, `no-new-privileges` e filesystem somente leitura, UID 0 no container não concede privilégios de kernel.
 
 No cenário de VPS do diagrama, 80/443 são as portas da borda e 22 é a porta ilustrativa de SSH. As portas altas do teste local evitam conflito com outros serviços do computador. O terceiro estado usa interfaces distintas para painel/VPN e webhook público; dois binds `0.0.0.0:443` e `10.77.0.1:443` no mesmo host entram em conflito. Use os IPs específicos de cada interface, como descrito em [host/README.md](host/README.md).
 
@@ -123,15 +134,17 @@ Na VPS, a mesma sequência foi executada novamente: [antes](evidence/audit-befor
 
 A [imagem PNG](diagrams/n8n-three-states.png), o [SVG editável](diagrams/n8n-three-states.svg) e o [gerador Python](scripts/network_diagram.py) cobrem os estados exposto, proxy e VPN. As fronteiras são a internet, a VPS, os containers e a rede do banco. As setas indicam requisições; as respostas usam as mesmas conexões.
 
-O [runbook Linux](host/README.md) documenta a implantação na VPS própria OCI Ubuntu 26.04: SSH somente por chave, root/senha desabilitados e UFW com TCP 22/80/443, preservando as regras OCI de metadata/iSCSI/DNS. Os 13 controles de host foram verificados em uma sessão SSH nova; a tentativa externa por senha foi rejeitada. As evidências ficam em [verification-host.json](evidence/verification-host.json). **WireGuard permanece como arquitetura e template; o túnel não foi implantado.**
+O [runbook Linux](host/README.md) documenta a implantação na VPS própria OCI Ubuntu 26.04: SSH somente por chave, root/senha desabilitados e UFW com TCP 22/80/443, preservando as regras OCI de metadata/iSCSI/DNS. Os 13 controles de host foram verificados em uma sessão SSH nova; a tentativa externa por senha foi rejeitada. As evidências ficam em [verification-host.json](evidence/verification-host.json).
+
+O estado 03 (administração por VPN) também foi implantado nesta VPS: WireGuard em 51820/udp, SSH e painel acessíveis apenas pela interface `wg0`, portas públicas 22/80/443 removidas — verificado com [verification-vpn.json](evidence/verification-vpn.json), incluindo a porta externa testada a partir de outro host. Quando o host volta ao estado 02 (webhook/proxy público), reexecute `verify-host.py`; a evidência armazenada do host é do estado 02 e antecede a implantação do túnel.
 
 Para reproduzir o stack na VPS nova: `sudo python3 scripts/lab.py init --vps --host <IP_DO_LAB>`. O perfil usa HTTP 80 e HTTPS 443; a entrada separada de webhook continua em `127.0.0.1:19443`. Execute a sequência `before`, `up`, `verify --vps` e `after` no Linux. A rota pública do editor também exige BasicAuth para qualquer webhook que a atravesse; a entrada separada não publica eventos na internet.
 
 O certificado da VPS é de teste, com SAN do seu IP e de localhost. Os testes confiam explicitamente no certificado gerado, sem desabilitar TLS. A VPS não tem IPv6 global; apenas a política UFW IPv6 foi inspecionada. Abrir 80/443 no host não modifica as Security Lists/NSGs da Oracle: a validação externa tem registro separado.
 
-## Base nas implementações de Marcos
+## Base nos repositórios de referência
 
-Foram clonados e lidos os projetos fornecidos:
+Foram clonados e lidos estes projetos, que inspiraram o padrão de proxy:
 
 - [migracao-traefik](https://github.com/MarcosSMZ94/migracao-traefik), commit `bbfc585b016e172706aabbb220e884ed03fa459a`: file provider, redes declaradas no Compose, rotas por Host, headers e rate limit.
 - [vaultwarden-setup](https://github.com/MarcosSMZ94/vaultwarden-setup), commit `2dd961616b10df001d91f654742c26c199d120ea`: separação proxy/banco, TLS mínimo e endurecimento de host.
@@ -159,4 +172,4 @@ Para diagnóstico: `docker compose ps` e `docker compose logs --tail 50 n8n trae
 - [Verificação de uso recente de credenciais na versão testada](https://github.com/n8n-io/n8n/blob/n8n%402.42.6/packages/cli/src/security-audit/risk-reporters/credentials-risk-reporter.ts).
 - [Traefik: BasicAuth](https://doc.traefik.io/traefik/reference/routing-configuration/http/middlewares/basicauth/), [TLS](https://doc.traefik.io/traefik/reference/routing-configuration/http/tls/tls-certificates/) e [Docker: firewall](https://docs.docker.com/engine/network/packet-filtering-firewalls/).
 
-Texto do PR para avaliação: [PR.md](PR.md). Checklist de entrega e limitações: [ENTREGA.md](ENTREGA.md).
+Textos e configurações deste laboratório foram produzidos com assistência de IA sob direção e revisão humana; a validação (execuções, auditorias e testes registrados em `evidence/`) foi executada de fato em máquina e VPS próprias. Detalhes no [PR.md](PR.md).

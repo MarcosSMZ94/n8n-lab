@@ -1,0 +1,60 @@
+name: ci
+
+on:
+  push:
+    branches: [main, "feat/**"]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  lab:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Versões
+        run: |
+          docker version --format 'Docker {{.Server.Version}}'
+          docker compose version
+
+      - name: Inicializar laboratório (segredos efêmeros do runner)
+        run: python scripts/lab.py init
+
+      - name: Validar schema do Compose
+        run: docker compose config --quiet
+
+      - name: Auditoria antes
+        run: python scripts/lab.py before
+
+      - name: Subir stack endurecido
+        run: python scripts/lab.py up
+
+      - name: Verificações HTTP e runtime
+        run: python scripts/lab.py verify
+
+      - name: Auditoria depois
+        run: python scripts/lab.py after
+
+      - name: Diferença das auditorias
+        run: |
+          jq -e 'has("Nodes Risk Report") | not' evidence/audit-after.json
+          jq -e 'has("Filesystem Risk Report") | not' evidence/audit-after.json
+          jq -e '.["Instance Risk Report"].sections | map(select(.title == "Unprotected webhooks in instance")) | length == 0' evidence/audit-after.json
+          jq -e '.["Instance Risk Report"].sections | map(select(.title == "Security settings")) | .[0].settings.features | .communityPackagesEnabled == false and .templatesEnabled == false and .publicApiEnabled == false' evidence/audit-after.json
+          jq -e '.["Instance Risk Report"].sections | map(select(.title == "Security settings")) | .[0].settings.telemetry.diagnosticsEnabled == false' evidence/audit-after.json
+
+      - name: Publicar evidências como artefato
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: evidence
+          path: evidence/
+          retention-days: 7

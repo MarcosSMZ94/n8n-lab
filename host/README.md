@@ -26,7 +26,7 @@ sudo python3 scripts/lab.py verify --vps
 sudo python3 scripts/lab.py after
 ```
 
-O perfil VPS publica 80/443 no IPv4 do host; 19443 continua exclusivamente em loopback. `init --vps --host` gera um certificado de teste novo com SAN do endereço indicado e de localhost. O certificado não é confiável automaticamente no navegador. Para uso além da avaliação, substitua-o por certificado emitido por uma CA confiável para seu domínio de teste.
+O perfil VPS publica 80/443 no IPv4 do host; 19443 continua exclusivamente em loopback. `init --vps --host` gera um certificado de teste novo com SAN do endereço indicado e de localhost. O certificado não é confiável automaticamente no navegador. Para uso além da avaliação, substitua-o por certificado emitido por uma CA confiável para seu domínio de teste. O `verify-host.py` também confere as atualizações automáticas de segurança (`unattended-upgrades`); a evidência armazenada em `verification-host.json` é da execução de 11/10/2026 e antecede esse check — reexecute-o na próxima janela de manutenção para capturá-lo.
 
 Na OCI, as Security Lists/NSGs também devem permitir TCP 80/443 da origem de avaliação. Abrir UFW não altera a camada de rede da nuvem. Para teste externo, copie privadamente apenas `.local/access.json` e `.local/tls/lab.crt` da VPS para `.local/vps/access.json` e `.local/vps/lab.crt` no cliente, e execute `python scripts/verify_external.py --host <IP_DO_LAB> --private-dir .local/vps`. Não copie a chave privada TLS ou `.env`.
 
@@ -53,4 +53,6 @@ Se existir webhook público, configure `HOOK_BIND=<IP_DA_INTERFACE_DA_VM>` e `HO
 
 A rota pública aceita somente o caminho e método da fixture, e o n8n valida o token. `/`, `/rest/*`, `/api/*`, `/webhook-test/*`, outros caminhos e GET não devem alcançar o editor pela entrada pública. Não copie um `PathPrefix(/)` para o hostname público. Se não precisar de webhook público, feche essa publicação e a regra pública 443; resta apenas UDP 51820 para estabelecer o túnel.
 
-Confira de um cliente fora da VPN e de outro dentro dela. Fora: SSH/painel não conectam; somente o webhook permitido responde, exigindo autenticação. Dentro: painel HTTPS e SSH por chave funcionam. Registre portas, resultados e logs sem credenciais. **WireGuard não foi implantado:** este estado é o diagrama e o roteiro de referência solicitados no segundo card.
+Confira de um cliente fora da VPN e de outro dentro dela. Fora: SSH/painel não conectam; somente o webhook permitido responde, exigindo autenticação. Dentro: painel HTTPS e SSH por chave funcionam. Registre portas, resultados e logs sem credenciais.
+
+**Implantado e verificado em 17/10/2026 nesta VPS:** túnel WireGuard ativo (handshake confirmado), painel em `10.77.0.1:443` com TLS/BasicAuth validados, SSH via `wg0` funcionando e portas públicas 22/80/443 testadas fechadas do exterior. Evidência: [verification-vpn.json](../evidence/verification-vpn.json). O controle de `unattended-upgrades` do `verify-host.py` corresponde ao estado 02; ao retornar da VPN, reexecute-o para capturar o check. A fixture de webhook deste laboratório não exige entrada pública: restou apenas 51820/udp na borda.

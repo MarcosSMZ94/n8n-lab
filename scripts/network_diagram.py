@@ -120,7 +120,7 @@ def draw():
     rect(50,1600,2400,200,'#eaf0f7','#d2dce8')
     text(75,1640,'LEITURA E CORRESPONDÊNCIA COM O REPOSITÓRIO',24,weight=700)
     text(75,1680,'01 é referência de risco: a baseline da auditoria usa CLI sem rede/portas. 02 é implementado pelo Compose do laboratório.',22)
-    text(75,1716,'02 também implantado na VPS Ubuntu de teste, com SSH/UFW. 03 permanece uma referência: túnel VPN não executado.',22)
+    text(75,1716,'02 e 03 implantados na VPS Ubuntu de teste: 02 com SSH/UFW; 03 com WireGuard em 51820/udp e painel/SSH somente via wg0 (verification-vpn.json).',22)
     text(75,1752,'No teste local: HTTP 18080; painel HTTPS 18443; entrada exclusiva de webhook HTTPS 19443 — todos em 127.0.0.1.',22)
     text(75,1785,'UFW INPUT não basta para portas publicadas pelo Docker. O controle decisivo é não publicar n8n/PostgreSQL.',21,'#52647a')
     parts.append('</svg>')

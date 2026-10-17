@@ -36,6 +36,9 @@ swap = run('swapon', '--show', '--bytes', '--noheadings', '--output', 'NAME,SIZE
 swap_sizes = [next((int(x) for x in line.split()[1:] if x.isdecimal()), 0)
     for line in swap.splitlines() if line.split()[0] == '/swap-ares']
 check('Swap de 2 GiB ativo', any(size >= 2 * 1024**3 - 1024**2 for size in swap_sizes))
+auto_conf = Path('/etc/apt/apt.conf.d/20auto-upgrades')
+apt_timer = subprocess.run(['systemctl', 'is-active', 'apt-daily-upgrade.timer'], capture_output=True, text=True)
+check('Atualizações automáticas de segurança ativas', auto_conf.exists() and 'Unattended-Upgrade "1"' in auto_conf.read_text(encoding='utf-8') and apt_timer.stdout.strip() == 'active')
 output = {'executed_at_utc': dt.datetime.now(dt.timezone.utc).isoformat(),
     'scope': 'VPS própria OCI Ubuntu; endereços/credenciais omitidos',
     'ssh_effective': {k: effective.get(k) for k in expected}, 'ufw_status': ufw,

@@ -6,7 +6,7 @@ test "$(id -u)" -eq 0 || { echo 'Execute com sudo.' >&2; exit 1; }
 test "$ID" = ubuntu || { echo 'Este bootstrap exige Ubuntu.' >&2; exit 1; }
 export DEBIAN_FRONTEND=noninteractive
 apt-get update -qq
-apt-get install -y ca-certificates curl openssl ufw
+apt-get install -y ca-certificates curl openssl ufw unattended-upgrades
 install -m 0755 -d /etc/apt/keyrings
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
 chmod a+r /etc/apt/keyrings/docker.asc
@@ -21,6 +21,13 @@ EOF
 apt-get update -qq
 apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 systemctl enable --now docker
+# Atualizações automáticas de segurança.
+cat > /etc/apt/apt.conf.d/20auto-upgrades <<'EOF'
+APT::Periodic::Update-Package-Lists "1";
+APT::Periodic::Unattended-Upgrade "1";
+EOF
+systemctl enable --now unattended-upgrades.service
+systemctl enable --now apt-daily-upgrade.timer
 # A VM utilizada tem 1 GiB de RAM. Não sobrescreve swap existente.
 if [ "$(awk '/MemTotal/ {print $2}' /proc/meminfo)" -lt 2000000 ] && ! swapon --show --noheadings | grep -q .; then
   test ! -e /swap-ares || { echo '/swap-ares já existe; revise manualmente.' >&2; exit 1; }

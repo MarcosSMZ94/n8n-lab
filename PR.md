@@ -15,6 +15,10 @@ Um n8n com a porta 5678 publicada permite contornar o proxy e alcançar diretame
 
 Os controles partem das páginas [Security](https://docs.n8n.io/deploy/host-n8n/configure-n8n/security.md) e [Run security audits](https://docs.n8n.io/deploy/host-n8n/configure-n8n/security/run-security-audits.md) do n8n. O README traz a tabela de rastreabilidade: ação recomendada → local de implementação → status, incluindo o que a documentação oferece e não foi adotado (SSO por dependência de licença, SSRF pendente, rotação de chave parcial).
 
+## Declaração de uso de IA
+
+A implementação deste laboratório foi desenvolvida com assistência de IA (OpenAI ChatGPT/Codex para o material inicial; Claude Code da Z.ai para organização, CI, implantação do estado VPN e revisão). A IA redigiu rascunhos de configuração, scripts e documentação, sempre sob direção e revisão humana: a sequência `before → up → verify → after` foi executada de fato na máquina local e na VPS própria, os testes externos rodaram a partir de outro host, e as evidências em `evidence/` refletem execuções reais — não saídas redigidas. Nenhum segredo passou por prompts ou repositório; credenciais são geradas localmente por `scripts/lab.py init`.
+
 ## Validação
 
 Execução real no Docker Desktop Linux local e na VPS própria OCI Ubuntu 26.04, com n8n 2.42.6, Traefik 3.7.12 e PostgreSQL 17.11. A VPS usa Docker Engine 29.9.0/Compose 5.6.0. Auditorias locais: `evidence/audit-before.json` e `audit-after.json`; auditorias na VPS: `audit-before-vps.json` e `audit-after-vps.json`, acompanhadas dos logs brutos.
@@ -25,8 +29,8 @@ Antes: um webhook sem autenticação, um nó Execute Command e um nó de arquivo
 
 SSH/UFW foram aplicados e validados na VPS: senha/root desabilitados, nova conexão por chave confirmada, TCP 22/80/443 permitidos, RPC desativado e proteções OCI preservadas de forma persistente. Foram executados 13 controles de host e 16 testes internos HTTP/runtime, registrados em `verification-host.json` e `verification-vps.json`. A importação via stdin mantém as fixtures privadas sem depender de igualdade de UID entre host/container. O certificado default do Traefik atende também clientes por IP sem SNI.
 
+O estado 03 foi implantado na mesma VPS: túnel WireGuard em 51820/udp, painel bindado em `10.77.0.1:443` (TLS 1.2, BasicAuth), SSH restrito à interface `wg0` e portas públicas 22/80/443 removidas do UFW, preservando as regras OCI. Do exterior, 22/80/443 não conectam; pelo túnel, o painel responde 401 sem BasicAuth e 200 com, com certificado validado — [verification-vpn.json](evidence/verification-vpn.json). Sem webhook público, restou apenas 51820/udp de superfície, como no terceiro estado do diagrama.
+
 Depois da liberação de 80/443 por Marcos na OCI, os 11 testes externos em `verification-external.json` passaram: TLS validado com a CA de laboratório, redirecionamento HTTP, autenticação em camadas e portas diretas de n8n/banco fechadas. Não foi usada opção de ignorar a verificação TLS.
 
 Os certificados são de teste, não confiáveis automaticamente no navegador. A VPS não tem IPv6 global; a política IPv6 foi inspecionada, sem teste externo IPv6. WireGuard é o terceiro estado do diagrama e um template, sem túnel implantado. Não há promessa de proteção integral contra SSRF, replay de provedores externos ou usuários de workflow maliciosos.
-
-Este arquivo é o texto de um PR pronto para revisão. Nenhum PR foi aberto ou enviado, conforme a instrução de entregar localmente.

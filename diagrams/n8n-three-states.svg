@@ -153,7 +153,7 @@
 <rect x="50" y="1600" width="2400" height="200" rx="16" fill="#eaf0f7" stroke="#d2dce8" stroke-width="2"/>
 <text x="75" y="1640" font-family="Segoe UI,DejaVu Sans,sans-serif" font-size="24" font-weight="700" fill="#16283d" text-anchor="start">LEITURA E CORRESPONDÊNCIA COM O REPOSITÓRIO</text>
 <text x="75" y="1680" font-family="Segoe UI,DejaVu Sans,sans-serif" font-size="22" font-weight="400" fill="#16283d" text-anchor="start">01 é referência de risco: a baseline da auditoria usa CLI sem rede/portas. 02 é implementado pelo Compose do laboratório.</text>
-<text x="75" y="1716" font-family="Segoe UI,DejaVu Sans,sans-serif" font-size="22" font-weight="400" fill="#16283d" text-anchor="start">02 também implantado na VPS Ubuntu de teste, com SSH/UFW. 03 permanece uma referência: túnel VPN não executado.</text>
+<text x="75" y="1716" font-family="Segoe UI,DejaVu Sans,sans-serif" font-size="22" font-weight="400" fill="#16283d" text-anchor="start">02 e 03 implantados na VPS Ubuntu de teste: 02 com SSH/UFW; 03 com WireGuard em 51820/udp e painel/SSH somente via wg0 (verification-vpn.json).</text>
 <text x="75" y="1752" font-family="Segoe UI,DejaVu Sans,sans-serif" font-size="22" font-weight="400" fill="#16283d" text-anchor="start">No teste local: HTTP 18080; painel HTTPS 18443; entrada exclusiva de webhook HTTPS 19443 — todos em 127.0.0.1.</text>
 <text x="75" y="1785" font-family="Segoe UI,DejaVu Sans,sans-serif" font-size="21" font-weight="400" fill="#52647a" text-anchor="start">UFW INPUT não basta para portas publicadas pelo Docker. O controle decisivo é não publicar n8n/PostgreSQL.</text>
 </svg>
