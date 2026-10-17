@@ -1,0 +1,62 @@
+# Gerado em .local/dynamic/routes.yml por lab.py init.
+# file provider: não precisa montar o socket Docker.
+http:
+  routers:
+    http-to-https:
+      entryPoints: [web]
+      rule: Host(`__HOST__`)
+      service: noop@internal
+      middlewares: [redirect]
+    editor:
+      entryPoints: [websecure]
+      rule: Host(`__HOST__`)
+      service: n8n
+      middlewares: [headers, rate-limit, editor-auth]
+      tls: {}
+    synthetic-hook:
+      entryPoints: [hooks]
+      rule: Host(`__HOST__`) && Path(`/webhook/ares-lab`) && Method(`POST`)
+      service: n8n
+      middlewares: [headers, rate-limit]
+      tls: {}
+  services:
+    n8n:
+      loadBalancer:
+        servers:
+          - url: http://n8n:5678
+  middlewares:
+    redirect:
+      redirectScheme:
+        scheme: https
+        port: "__TLS_PORT__"
+        permanent: true
+    editor-auth:
+      basicAuth:
+        usersFile: /run/secrets/proxy.users
+        removeHeader: true
+        realm: Ares n8n lab
+    rate-limit:
+      rateLimit:
+        average: 30
+        burst: 60
+    headers:
+      headers:
+        contentTypeNosniff: true
+        frameDeny: true
+        referrerPolicy: same-origin
+        stsSeconds: 31536000
+        customResponseHeaders:
+          Server: ""
+          X-Robots-Tag: noindex, nofollow
+tls:
+  stores:
+    default:
+      defaultCertificate:
+        certFile: /certs/lab.crt
+        keyFile: /certs/lab.key
+  certificates:
+    - certFile: /certs/lab.crt
+      keyFile: /certs/lab.key
+  options:
+    default:
+      minVersion: VersionTLS12

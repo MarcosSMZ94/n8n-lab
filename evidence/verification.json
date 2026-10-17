@@ -1,0 +1,83 @@
+{
+  "executed_at_utc": "2026-10-11T12:28:32.058093+00:00",
+  "scope": "Docker Desktop local; TLS validado com certificado de teste; nenhum acesso a VPS",
+  "checks": [
+    {
+      "check": "HTTP redireciona para a porta HTTPS correta",
+      "status": "PASS",
+      "http_status": 301
+    },
+    {
+      "check": "Painel exige BasicAuth",
+      "status": "PASS",
+      "http_status": 401
+    },
+    {
+      "check": "Painel autenticado via HTTPS",
+      "status": "PASS",
+      "http_status": 200
+    },
+    {
+      "check": "Webhook exige header do n8n",
+      "status": "PASS",
+      "http_status": 403
+    },
+    {
+      "check": "Webhook rejeita token incorreto",
+      "status": "PASS",
+      "http_status": 403
+    },
+    {
+      "check": "Webhook autenticado executa workflow",
+      "status": "PASS",
+      "http_status": 200
+    },
+    {
+      "check": "Entrada de webhook bloqueia painel",
+      "status": "PASS",
+      "http_status": 404
+    },
+    {
+      "check": "Entrada de webhook bloqueia REST",
+      "status": "PASS",
+      "http_status": 404
+    },
+    {
+      "check": "Entrada de webhook bloqueia outro caminho",
+      "status": "PASS",
+      "http_status": 404
+    },
+    {
+      "check": "Entrada de webhook bloqueia GET",
+      "status": "PASS",
+      "http_status": 404
+    },
+    {
+      "check": "Login nativo exige sessão",
+      "status": "PASS",
+      "http_status": 401
+    },
+    {
+      "check": "API sem sessão rejeitada (API key desabilitada no audit)",
+      "status": "PASS",
+      "http_status": 401
+    },
+    {
+      "check": "Login nativo com cookie Secure e HttpOnly",
+      "status": "PASS",
+      "http_status": 200
+    },
+    {
+      "check": "n8n sem porta publicada no runtime",
+      "status": "PASS"
+    },
+    {
+      "check": "postgres sem porta publicada no runtime",
+      "status": "PASS"
+    },
+    {
+      "check": "Role n8n sem superuser/createdb/createrole",
+      "status": "PASS"
+    }
+  ]
+}

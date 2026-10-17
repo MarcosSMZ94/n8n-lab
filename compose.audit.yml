@@ -1,0 +1,23 @@
+# Baseline vulnerável SOMENTE para CLI: sem portas, sem acesso externo.
+name: ares-n8n-audit
+services:
+  audit:
+    image: docker.n8n.io/n8nio/n8n:2.42.6@sha256:526daa38b68e923cc00c5280d18b4da5d489f115a73bdbf3b8e452b184197a9a
+    user: "1000:1000"
+    security_opt: [no-new-privileges:true]
+    cap_drop: [ALL]
+    network_mode: none
+    environment:
+      N8N_ENCRYPTION_KEY: ${N8N_ENCRYPTION_KEY:?Execute scripts/lab.py init}
+      N8N_DIAGNOSTICS_ENABLED: "true"
+      N8N_TEMPLATES_ENABLED: "true"
+      N8N_COMMUNITY_PACKAGES_ENABLED: "true"
+      N8N_PUBLIC_API_DISABLED: "false"
+      NODES_EXCLUDE: '[]'
+      N8N_SECURE_COOKIE: "false"
+      N8N_VERSION_NOTIFICATIONS_ENDPOINT: http://127.0.0.1:1/
+      N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS: "true"
+    volumes:
+      - audit-data:/home/node/.n8n
+volumes:
+  audit-data:

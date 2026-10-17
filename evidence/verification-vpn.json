@@ -1,0 +1,25 @@
+{
+  "executed_at_utc": "2026-10-17T11:08:25.797808+00:00",
+  "scope": "Estado 03 (VPN): painel em 10.77.0.1:443 via wg0, TLS validado contra certificado de teste; portas publicas 22/80/443 testadas fechadas do exterior",
+  "checks": [
+    {
+      "check": "Painel pelo túnel exige BasicAuth (sem auth -> 401)",
+      "status": "PASS",
+      "http_status": 401
+    },
+    {
+      "check": "Painel pelo túnel autenticado (BasicAuth -> 200)",
+      "status": "PASS",
+      "http_status": 200
+    },
+    {
+      "check": "Login nativo atrás do BasicAuth (POST/negado sem corpo -> 401)",
+      "status": "PASS",
+      "http_status": 401
+    },
+    {
+      "check": "Handshake WireGuard registrado",
+      "status": "PASS"
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "n8n": "2.42.6",
+  "traefik": "3.7.12",
+  "postgres": "17.11",
+  "scope": "local Docker Desktop Linux; all published ports bound to 127.0.0.1",
+  "docker": "29.4.0 / 29.4.0",
+  "compose": "5.1.2",
+  "reference_commits": {
+    "migracao-traefik": "bbfc585b016e172706aabbb220e884ed03fa459a",
+    "vaultwarden-setup": "2dd961616b10df001d91f654742c26c199d120ea"
+  }
+}

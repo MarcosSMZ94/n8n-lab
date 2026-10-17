@@ -1,0 +1,44 @@
+{
+  "Credentials Risk Report": {
+    "risk": "credentials",
+    "sections": [
+      {
+        "title": "Credentials not used in recently executed workflows",
+        "description": "This credential is not used in recently executed workflows, i.e. workflows executed in the past 90 days. Keeping unused credentials in your instance is an unneeded security risk.",
+        "recommendation": "Consider deleting these credentials if you no longer need them.",
+        "location": [
+          {
+            "kind": "credential",
+            "id": "aresLabHeader01",
+            "name": "ARES header sintetico"
+          }
+        ]
+      }
+    ]
+  },
+  "Instance Risk Report": {
+    "risk": "instance",
+    "sections": [
+      {
+        "title": "Security settings",
+        "description": "This n8n instance has the following security settings.",
+        "recommendation": "Consider adjusting the security settings for your n8n instance based on your needs. See: https://docs.n8n.io/hosting/configuration/environment-variables/",
+        "settings": {
+          "features": {
+            "communityPackagesEnabled": false,
+            "versionNotificationsEnabled": true,
+            "templatesEnabled": false,
+            "publicApiEnabled": false
+          },
+          "nodes": {
+            "nodesExclude": "n8n-nodes-base.executeCommand, n8n-nodes-base.localFileTrigger, n8n-nodes-base.readWriteFile, n8n-nodes-base.readBinaryFile, n8n-nodes-base.readBinaryFiles, n8n-nodes-base.writeBinaryFile, n8n-nodes-base.readPdf, n8n-nodes-base.ssh, n8n-nodes-base.ftp, n8n-nodes-base.code, n8n-nodes-base.function, n8n-nodes-base.functionItem, n8n-nodes-base.e2eTest, n8n-nodes-base.dynamicCredentialCheck",
+            "nodesInclude": "none"
+          },
+          "telemetry": {
+            "diagnosticsEnabled": false
+          }
+        }
+      }
+    ]
+  }
+}

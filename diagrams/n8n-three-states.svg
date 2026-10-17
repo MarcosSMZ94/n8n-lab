@@ -1,0 +1,159 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2500" height="1840" viewBox="0 0 2500 1840">
+<defs>
+<marker id="arrow-2467ae" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="9" markerHeight="9" orient="auto-start-reverse"><path d="M0 0 L12 6 L0 12 Z" fill="#2467ae"/></marker>
+<marker id="arrow-b34237" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="9" markerHeight="9" orient="auto-start-reverse"><path d="M0 0 L12 6 L0 12 Z" fill="#b34237"/></marker>
+<marker id="arrow-16715c" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="9" markerHeight="9" orient="auto-start-reverse"><path d="M0 0 L12 6 L0 12 Z" fill="#16715c"/></marker>
+<marker id="arrow-788899" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="9" markerHeight="9" orient="auto-start-reverse"><path d="M0 0 L12 6 L0 12 Z" fill="#788899"/></marker>
+</defs>
+<rect x="0" y="0" width="2500" height="1840" rx="0" fill="#f5f8fc" stroke="#f5f8fc" stroke-width="2"/>
+<text x="60" y="70" font-family="Segoe UI,DejaVu Sans,sans-serif" font-size="44" font-weight="700" fill="#16283d" text-anchor="start">A rede de um servidor com n8n</text>
+<text x="60" y="116" font-family="Segoe UI,DejaVu Sans,sans-serif" font-size="25" font-weight="400" fill="#52647a" text-anchor="start">Três estados de exposição · Arquitetura de referência de uma VPS Linux própria</text>
+<text x="60" y="156" font-family="Segoe UI,DejaVu Sans,sans-serif" font-size="21" font-weight="400" fill="#52647a" text-anchor="start">As setas mostram o sentido da requisição/conexão; as respostas retornam na mesma sessão.</text>
+<rect x="50" y="200" width="780" height="1370" rx="20" fill="#ffffff" stroke="#d2dce8" stroke-width="2"/>
+<rect x="50" y="200" width="780" height="110" rx="20" fill="#eaf0f7" stroke="#b34237" stroke-width="2"/>
+<text x="72" y="240" font-family="Segoe UI,DejaVu Sans,sans-serif" font-size="24" font-weight="700" fill="#b34237" text-anchor="start">01</text>
+<text x="125" y="240" font-family="Segoe UI,DejaVu Sans,sans-serif" font-size="27" font-weight="700" fill="#b34237" text-anchor="start">EXPOSTO</text>
+<text x="72" y="282" font-family="Segoe UI,DejaVu Sans,sans-serif" font-size="21" font-weight="400" fill="#425a72" text-anchor="start">Qualquer cliente alcança o n8n diretamente.</text>
+<rect x="78" y="340" width="724" height="100" rx="16" fill="#f8fafc" stroke="#9aadc1" stroke-width="2"/>
+<text x="98" y="376" font-family="Segoe UI,DejaVu Sans,sans-serif" font-size="25" font-weight="650" fill="#16283d" text-anchor="start">INTERNET / CLIENTES</text>
+<text x="98" y="412" font-family="Segoe UI,DejaVu Sans,sans-serif" font-size="20" font-weight="400" fill="#16283d" text-anchor="start">Navegador, administrador remoto e produtor de eventos</text>
+<rect x="66" y="480" width="748" height="1068" rx="12" fill="#fafcfe" stroke="#94a7bd" stroke-width="2" stroke-dasharray="9 6"/>
+<text x="82" y="510" font-family="Segoe UI,DejaVu Sans,sans-serif" font-size="20" font-weight="600" fill="#52647a" text-anchor="start">VPS · limite de confiança</text>
+<rect x="78" y="535" width="724" height="136" rx="16" fill="#edf2f7" stroke="#9aadc1" stroke-width="2"/>
+<text x="98" y="571" font-family="Segoe UI,DejaVu Sans,sans-serif" font-size="25" font-weight="650" fill="#16283d" text-anchor="start">FIREWALL + REGRAS DO DOCKER</text>
+<text x="98" y="607" font-family="Segoe UI,DejaVu Sans,sans-serif" font-size="20" font-weight="400" fill="#16283d" text-anchor="start">5678/TCP publicada (DNAT Docker)</text>
+<text x="98" y="637" font-family="Segoe UI,DejaVu Sans,sans-serif" font-size="20" font-weight="400" fill="#16283d" text-anchor="start">22/TCP: serviço SSH do host</text>
+<polyline points="440,440 440,533" fill="none" stroke="#b34237" stroke-width="4" marker-end="url(#arrow-b34237)"/>
+<text x="460" y="486" font-family="Segoe UI,DejaVu Sans,sans-serif" font-size="21" font-weight="600" fill="#b34237" text-anchor="start">entrada</text>
+<rect x="85" y="760" width="220" height="132" rx="16" fill="#f1f5f9" stroke="#9aadc1" stroke-width="2"/>
+<text x="105" y="796" font-family="Segoe UI,DejaVu Sans,sans-serif" font-size="25" font-weight="650" fill="#16283d" text-anchor="start">SSH · 22/TCP</text>
+<text x="105" y="832" font-family="Segoe UI,DejaVu Sans,sans-serif" font-size="20" font-weight="400" fill="#16283d" text-anchor="start">Administração</text>
+<text x="105" y="862" font-family="Segoe UI,DejaVu Sans,sans-serif" font-size="20" font-weight="400" fill="#16283d" text-anchor="start">Acesso remoto</text>
+<polyline points="190,671 190,758" fill="none" stroke="#b34237" stroke-width="4" marker-end="url(#arrow-b34237)"/>
+<text x="207" y="718" font-family="Segoe UI,DejaVu Sans,sans-serif" font-size="21" font-weight="600" fill="#b34237" text-anchor="start">22/TCP</text>
+<rect x="340" y="710" width="450" height="803" rx="14" fill="#f7fafc" stroke="#afbfcd" stroke-width="2" stroke-dasharray="6 5"/>
+<text x="358" y="740" font-family="Segoe UI,DejaVu Sans,sans-serif" font-size="20" font-weight="600" fill="#52647a" text-anchor="start">Redes Docker privadas</text>
+<rect x="360" y="805" width="410" height="140" rx="16" fill="#f7f8fa" stroke="#c3cbd4" stroke-width="2"/>
+<text x="380" y="841" font-family="Segoe UI,DejaVu Sans,sans-serif" font-size="25" font-weight="650" fill="#16283d" text-anchor="start">PROXY: AUSENTE</text>
+<text x="380" y="877" font-family="Segoe UI,DejaVu Sans,sans-serif" font-size="20" font-weight="400" fill="#16283d" text-anchor="start">Sem TLS na borda</text>
+<text x="380" y="907" font-family="Segoe UI,DejaVu Sans,sans-serif" font-size="20" font-weight="400" fill="#16283d" text-anchor="start">Nenhuma filtragem de rotas</text>
+<rect x="360" y="1025" width="410" height="140" rx="16" fill="#fff1ed" stroke="#b34237" stroke-width="2"/>
+<text x="380" y="1061" font-family="Segoe UI,DejaVu Sans,sans-serif" font-size="25" font-weight="650" fill="#16283d" text-anchor="start">n8n · TCP 5678</text>
+<text x="380" y="1097" font-family="Segoe UI,DejaVu Sans,sans-serif" font-size="20" font-weight="400" fill="#16283d" text-anchor="start">HTTP alcançável pela internet</text>
+<text x="380" y="1127" font-family="Segoe UI,DejaVu Sans,sans-serif" font-size="20" font-weight="400" fill="#16283d" text-anchor="start">Painel, REST e webhooks</text>
+<polyline points="735,671 735,760 805,760 805,1095 772,1095" fill="none" stroke="#b34237" stroke-width="4" marker-end="url(#arrow-b34237)"/>
+<text x="450" y="993" font-family="Segoe UI,DejaVu Sans,sans-serif" font-size="21" font-weight="600" fill="#b34237" text-anchor="start">5678/TCP · HTTP</text>
+<path d="M370,1365 v110 a195.0,25 0 0 0 390,0 v-110" fill="#eaf3f9" stroke="#809db8" stroke-width="2"/>
+<ellipse cx="565.0" cy="1365" rx="195.0" ry="25" fill="#f5f9fc" stroke="#809db8" stroke-width="2"/>
+<text x="390" y="1410" font-family="Segoe UI,DejaVu Sans,sans-serif" font-size="24" font-weight="650" fill="#16283d" text-anchor="start">PostgreSQL · TCP 5432</text>
+<text x="390" y="1442" font-family="Segoe UI,DejaVu Sans,sans-serif" font-size="21" font-weight="400" fill="#16283d" text-anchor="start">Rede database · interna</text>
+<text x="390" y="1472" font-family="Segoe UI,DejaVu Sans,sans-serif" font-size="21" font-weight="400" fill="#16283d" text-anchor="start">Sem porta no host</text>
+<polyline points="565,1165 565,1338" fill="none" stroke="#2467ae" stroke-width="4" marker-end="url(#arrow-2467ae)"/>
+<text x="580" y="1260" font-family="Segoe UI,DejaVu Sans,sans-serif" font-size="21" font-weight="600" fill="#2467ae" text-anchor="start">5432/TCP</text>
+<text x="88" y="1450" font-family="Segoe UI,DejaVu Sans,sans-serif" font-size="21" font-weight="600" fill="#52647a" text-anchor="start">VPN:</text>
+<text x="88" y="1484" font-family="Segoe UI,DejaVu Sans,sans-serif" font-size="21" font-weight="400" fill="#52647a" text-anchor="start">inativa</text>
+<rect x="870" y="200" width="780" height="1370" rx="20" fill="#ffffff" stroke="#d2dce8" stroke-width="2"/>
+<rect x="870" y="200" width="780" height="110" rx="20" fill="#eaf0f7" stroke="#2467ae" stroke-width="2"/>
+<text x="892" y="240" font-family="Segoe UI,DejaVu Sans,sans-serif" font-size="24" font-weight="700" fill="#2467ae" text-anchor="start">02</text>
+<text x="945" y="240" font-family="Segoe UI,DejaVu Sans,sans-serif" font-size="27" font-weight="700" fill="#2467ae" text-anchor="start">ATRÁS DO PROXY</text>
+<text x="892" y="282" font-family="Segoe UI,DejaVu Sans,sans-serif" font-size="21" font-weight="400" fill="#425a72" text-anchor="start">HTTPS e autenticação na borda.</text>
+<rect x="898" y="340" width="724" height="100" rx="16" fill="#f8fafc" stroke="#9aadc1" stroke-width="2"/>
+<text x="918" y="376" font-family="Segoe UI,DejaVu Sans,sans-serif" font-size="25" font-weight="650" fill="#16283d" text-anchor="start">INTERNET / CLIENTES</text>
+<text x="918" y="412" font-family="Segoe UI,DejaVu Sans,sans-serif" font-size="20" font-weight="400" fill="#16283d" text-anchor="start">Navegador, administrador remoto e produtor de eventos</text>
+<rect x="886" y="480" width="748" height="1068" rx="12" fill="#fafcfe" stroke="#94a7bd" stroke-width="2" stroke-dasharray="9 6"/>
+<text x="902" y="510" font-family="Segoe UI,DejaVu Sans,sans-serif" font-size="20" font-weight="600" fill="#52647a" text-anchor="start">VPS · limite de confiança</text>
+<rect x="898" y="535" width="724" height="136" rx="16" fill="#edf2f7" stroke="#9aadc1" stroke-width="2"/>
+<text x="918" y="571" font-family="Segoe UI,DejaVu Sans,sans-serif" font-size="25" font-weight="650" fill="#16283d" text-anchor="start">FIREWALL + REGRAS DO DOCKER</text>
+<text x="918" y="607" font-family="Segoe UI,DejaVu Sans,sans-serif" font-size="20" font-weight="400" fill="#16283d" text-anchor="start">80/443 TCP públicos; SSH 22 somente por chave</text>
+<text x="918" y="637" font-family="Segoe UI,DejaVu Sans,sans-serif" font-size="20" font-weight="400" fill="#16283d" text-anchor="start">5678/5432 sem publicação no host</text>
+<polyline points="1260,440 1260,533" fill="none" stroke="#2467ae" stroke-width="4" marker-end="url(#arrow-2467ae)"/>
+<text x="1280" y="486" font-family="Segoe UI,DejaVu Sans,sans-serif" font-size="21" font-weight="600" fill="#2467ae" text-anchor="start">entrada</text>
+<rect x="905" y="760" width="220" height="132" rx="16" fill="#f1f5f9" stroke="#9aadc1" stroke-width="2"/>
+<text x="925" y="796" font-family="Segoe UI,DejaVu Sans,sans-serif" font-size="25" font-weight="650" fill="#16283d" text-anchor="start">SSH · 22/TCP</text>
+<text x="925" y="832" font-family="Segoe UI,DejaVu Sans,sans-serif" font-size="20" font-weight="400" fill="#16283d" text-anchor="start">Administração</text>
+<text x="925" y="862" font-family="Segoe UI,DejaVu Sans,sans-serif" font-size="20" font-weight="400" fill="#16283d" text-anchor="start">Somente chave</text>
+<polyline points="1010,671 1010,758" fill="none" stroke="#2467ae" stroke-width="4" marker-end="url(#arrow-2467ae)"/>
+<text x="1027" y="718" font-family="Segoe UI,DejaVu Sans,sans-serif" font-size="21" font-weight="600" fill="#2467ae" text-anchor="start">22/TCP</text>
+<rect x="1160" y="710" width="450" height="803" rx="14" fill="#f7fafc" stroke="#afbfcd" stroke-width="2" stroke-dasharray="6 5"/>
+<text x="1178" y="740" font-family="Segoe UI,DejaVu Sans,sans-serif" font-size="20" font-weight="600" fill="#52647a" text-anchor="start">Containers Docker</text>
+<rect x="1180" y="805" width="410" height="140" rx="16" fill="#eef5fd" stroke="#2467ae" stroke-width="2"/>
+<text x="1200" y="841" font-family="Segoe UI,DejaVu Sans,sans-serif" font-size="25" font-weight="650" fill="#16283d" text-anchor="start">TRAEFIK · 80 / 443</text>
+<text x="1200" y="877" font-family="Segoe UI,DejaVu Sans,sans-serif" font-size="20" font-weight="400" fill="#16283d" text-anchor="start">80 redireciona para HTTPS</text>
+<text x="1200" y="907" font-family="Segoe UI,DejaVu Sans,sans-serif" font-size="20" font-weight="400" fill="#16283d" text-anchor="start">443: TLS + BasicAuth</text>
+<polyline points="1385,671 1385,803" fill="none" stroke="#2467ae" stroke-width="4" marker-end="url(#arrow-2467ae)"/>
+<text x="1400" y="769" font-family="Segoe UI,DejaVu Sans,sans-serif" font-size="21" font-weight="600" fill="#2467ae" text-anchor="start">80/443 TCP</text>
+<rect x="1180" y="1025" width="410" height="140" rx="16" fill="#eef5fd" stroke="#2467ae" stroke-width="2"/>
+<text x="1200" y="1061" font-family="Segoe UI,DejaVu Sans,sans-serif" font-size="25" font-weight="650" fill="#16283d" text-anchor="start">n8n · TCP 5678</text>
+<text x="1200" y="1097" font-family="Segoe UI,DejaVu Sans,sans-serif" font-size="20" font-weight="400" fill="#16283d" text-anchor="start">Login nativo + header no webhook</text>
+<text x="1200" y="1127" font-family="Segoe UI,DejaVu Sans,sans-serif" font-size="20" font-weight="400" fill="#16283d" text-anchor="start">Sem ports: no Compose</text>
+<polyline points="1385,945 1385,1023" fill="none" stroke="#2467ae" stroke-width="4" marker-end="url(#arrow-2467ae)"/>
+<text x="1200" y="990" font-family="Segoe UI,DejaVu Sans,sans-serif" font-size="21" font-weight="600" fill="#2467ae" text-anchor="start">5678/TCP · HTTP interno</text>
+<path d="M1190,1365 v110 a195.0,25 0 0 0 390,0 v-110" fill="#eaf3f9" stroke="#809db8" stroke-width="2"/>
+<ellipse cx="1385.0" cy="1365" rx="195.0" ry="25" fill="#f5f9fc" stroke="#809db8" stroke-width="2"/>
+<text x="1210" y="1410" font-family="Segoe UI,DejaVu Sans,sans-serif" font-size="24" font-weight="650" fill="#16283d" text-anchor="start">PostgreSQL · TCP 5432</text>
+<text x="1210" y="1442" font-family="Segoe UI,DejaVu Sans,sans-serif" font-size="21" font-weight="400" fill="#16283d" text-anchor="start">Rede database · interna</text>
+<text x="1210" y="1472" font-family="Segoe UI,DejaVu Sans,sans-serif" font-size="21" font-weight="400" fill="#16283d" text-anchor="start">Sem porta no host</text>
+<polyline points="1385,1165 1385,1338" fill="none" stroke="#2467ae" stroke-width="4" marker-end="url(#arrow-2467ae)"/>
+<text x="1186" y="1260" font-family="Segoe UI,DejaVu Sans,sans-serif" font-size="21" font-weight="600" fill="#2467ae" text-anchor="start">5432/TCP · rede database</text>
+<text x="908" y="1450" font-family="Segoe UI,DejaVu Sans,sans-serif" font-size="21" font-weight="600" fill="#52647a" text-anchor="start">VPN:</text>
+<text x="908" y="1484" font-family="Segoe UI,DejaVu Sans,sans-serif" font-size="21" font-weight="400" fill="#52647a" text-anchor="start">inativa</text>
+<rect x="1690" y="200" width="780" height="1370" rx="20" fill="#ffffff" stroke="#d2dce8" stroke-width="2"/>
+<rect x="1690" y="200" width="780" height="110" rx="20" fill="#eaf0f7" stroke="#16715c" stroke-width="2"/>
+<text x="1712" y="240" font-family="Segoe UI,DejaVu Sans,sans-serif" font-size="24" font-weight="700" fill="#16715c" text-anchor="start">03</text>
+<text x="1765" y="240" font-family="Segoe UI,DejaVu Sans,sans-serif" font-size="27" font-weight="700" fill="#16715c" text-anchor="start">ADMINISTRAÇÃO POR VPN</text>
+<text x="1712" y="282" font-family="Segoe UI,DejaVu Sans,sans-serif" font-size="21" font-weight="400" fill="#425a72" text-anchor="start">SSH e painel só pela rede WireGuard.</text>
+<rect x="1718" y="340" width="724" height="100" rx="16" fill="#f8fafc" stroke="#9aadc1" stroke-width="2"/>
+<text x="1738" y="376" font-family="Segoe UI,DejaVu Sans,sans-serif" font-size="25" font-weight="650" fill="#16283d" text-anchor="start">INTERNET / CLIENTES</text>
+<text x="1738" y="412" font-family="Segoe UI,DejaVu Sans,sans-serif" font-size="20" font-weight="400" fill="#16283d" text-anchor="start">Navegador, administrador remoto e produtor de eventos</text>
+<rect x="1706" y="480" width="748" height="1068" rx="12" fill="#fafcfe" stroke="#94a7bd" stroke-width="2" stroke-dasharray="9 6"/>
+<text x="1722" y="510" font-family="Segoe UI,DejaVu Sans,sans-serif" font-size="20" font-weight="600" fill="#52647a" text-anchor="start">VPS · limite de confiança</text>
+<rect x="1718" y="535" width="724" height="136" rx="16" fill="#edf2f7" stroke="#9aadc1" stroke-width="2"/>
+<text x="1738" y="571" font-family="Segoe UI,DejaVu Sans,sans-serif" font-size="25" font-weight="650" fill="#16283d" text-anchor="start">FIREWALL + REGRAS DO DOCKER</text>
+<text x="1738" y="607" font-family="Segoe UI,DejaVu Sans,sans-serif" font-size="20" font-weight="400" fill="#16283d" text-anchor="start">51820/UDP público; 443/TCP se houver webhook</text>
+<text x="1738" y="637" font-family="Segoe UI,DejaVu Sans,sans-serif" font-size="20" font-weight="400" fill="#16283d" text-anchor="start">22/TCP e painel 443 só em wg0</text>
+<polyline points="2080,440 2080,533" fill="none" stroke="#16715c" stroke-width="4" marker-end="url(#arrow-16715c)"/>
+<text x="2100" y="486" font-family="Segoe UI,DejaVu Sans,sans-serif" font-size="21" font-weight="600" fill="#16715c" text-anchor="start">entrada</text>
+<rect x="1725" y="1030" width="220" height="132" rx="16" fill="#eaf6f2" stroke="#16715c" stroke-width="2"/>
+<text x="1745" y="1066" font-family="Segoe UI,DejaVu Sans,sans-serif" font-size="25" font-weight="650" fill="#16283d" text-anchor="start">SSH · 22/TCP</text>
+<text x="1745" y="1102" font-family="Segoe UI,DejaVu Sans,sans-serif" font-size="20" font-weight="400" fill="#16283d" text-anchor="start">Só em wg0</text>
+<text x="1745" y="1132" font-family="Segoe UI,DejaVu Sans,sans-serif" font-size="20" font-weight="400" fill="#16283d" text-anchor="start">Somente chave</text>
+<rect x="2000" y="735" width="410" height="140" rx="16" fill="#eaf6f2" stroke="#16715c" stroke-width="2"/>
+<text x="2020" y="771" font-family="Segoe UI,DejaVu Sans,sans-serif" font-size="25" font-weight="650" fill="#16283d" text-anchor="start">WIREGUARD · wg0</text>
+<text x="2020" y="807" font-family="Segoe UI,DejaVu Sans,sans-serif" font-size="20" font-weight="400" fill="#16283d" text-anchor="start">51820/UDP: túnel autenticado</text>
+<text x="2020" y="837" font-family="Segoe UI,DejaVu Sans,sans-serif" font-size="20" font-weight="400" fill="#16283d" text-anchor="start">10.77.0.0/24 · admin autorizado</text>
+<polyline points="2205,671 2205,733" fill="none" stroke="#16715c" stroke-width="4" marker-end="url(#arrow-16715c)"/>
+<text x="2220" y="718" font-family="Segoe UI,DejaVu Sans,sans-serif" font-size="21" font-weight="600" fill="#16715c" text-anchor="start">51820/UDP</text>
+<rect x="1980" y="910" width="450" height="633" rx="14" fill="#f7fafc" stroke="#afbfcd" stroke-width="2" stroke-dasharray="6 5"/>
+<text x="1998" y="940" font-family="Segoe UI,DejaVu Sans,sans-serif" font-size="20" font-weight="600" fill="#52647a" text-anchor="start">Containers Docker</text>
+<rect x="2000" y="975" width="410" height="140" rx="16" fill="#eaf6f2" stroke="#16715c" stroke-width="2"/>
+<text x="2020" y="1011" font-family="Segoe UI,DejaVu Sans,sans-serif" font-size="25" font-weight="650" fill="#16283d" text-anchor="start">TRAEFIK · HTTPS</text>
+<text x="2020" y="1047" font-family="Segoe UI,DejaVu Sans,sans-serif" font-size="20" font-weight="400" fill="#16283d" text-anchor="start">Painel: bind no IP de wg0</text>
+<text x="2020" y="1077" font-family="Segoe UI,DejaVu Sans,sans-serif" font-size="20" font-weight="400" fill="#16283d" text-anchor="start">Webhook: IP público separado</text>
+<polyline points="2205,875 2205,973" fill="none" stroke="#16715c" stroke-width="4" marker-end="url(#arrow-16715c)"/>
+<text x="2220" y="904" font-family="Segoe UI,DejaVu Sans,sans-serif" font-size="21" font-weight="600" fill="#16715c" text-anchor="start">443/TCP via VPN</text>
+<polyline points="2000,805 1835,805 1835,1028" fill="none" stroke="#16715c" stroke-width="4" marker-end="url(#arrow-16715c)"/>
+<text x="1733" y="973" font-family="Segoe UI,DejaVu Sans,sans-serif" font-size="21" font-weight="600" fill="#16715c" text-anchor="start">SSH via túnel</text>
+<polyline points="2390,671 2445,671 2445,1040 2412,1040" fill="none" stroke="#2467ae" stroke-width="4" marker-end="url(#arrow-2467ae)"/>
+<text x="2023" y="1197" font-family="Segoe UI,DejaVu Sans,sans-serif" font-size="19" font-weight="600" fill="#2467ae" text-anchor="start">443 público: só POST /webhook/ares-lab</text>
+<rect x="2000" y="1230" width="410" height="132" rx="16" fill="#eaf6f2" stroke="#16715c" stroke-width="2"/>
+<text x="2020" y="1266" font-family="Segoe UI,DejaVu Sans,sans-serif" font-size="25" font-weight="650" fill="#16283d" text-anchor="start">n8n · TCP 5678</text>
+<text x="2020" y="1302" font-family="Segoe UI,DejaVu Sans,sans-serif" font-size="20" font-weight="400" fill="#16283d" text-anchor="start">Webhook exige token de header</text>
+<text x="2020" y="1332" font-family="Segoe UI,DejaVu Sans,sans-serif" font-size="20" font-weight="400" fill="#16283d" text-anchor="start">Painel/REST bloqueados na rota pública</text>
+<polyline points="2205,1115 2205,1228" fill="none" stroke="#16715c" stroke-width="4" marker-end="url(#arrow-16715c)"/>
+<text x="2220" y="1158" font-family="Segoe UI,DejaVu Sans,sans-serif" font-size="21" font-weight="600" fill="#16715c" text-anchor="start">5678/TCP interno</text>
+<path d="M2010,1415 v110 a195.0,25 0 0 0 390,0 v-110" fill="#eaf3f9" stroke="#809db8" stroke-width="2"/>
+<ellipse cx="2205.0" cy="1415" rx="195.0" ry="25" fill="#f5f9fc" stroke="#809db8" stroke-width="2"/>
+<text x="2030" y="1460" font-family="Segoe UI,DejaVu Sans,sans-serif" font-size="24" font-weight="650" fill="#16283d" text-anchor="start">PostgreSQL · TCP 5432</text>
+<text x="2030" y="1492" font-family="Segoe UI,DejaVu Sans,sans-serif" font-size="21" font-weight="400" fill="#16283d" text-anchor="start">Rede database · interna</text>
+<text x="2030" y="1522" font-family="Segoe UI,DejaVu Sans,sans-serif" font-size="21" font-weight="400" fill="#16283d" text-anchor="start">Sem porta no host</text>
+<polyline points="2205,1362 2205,1388" fill="none" stroke="#16715c" stroke-width="4" marker-end="url(#arrow-16715c)"/>
+<text x="1728" y="1405" font-family="Segoe UI,DejaVu Sans,sans-serif" font-size="20" font-weight="600" fill="#52647a" text-anchor="start">Sem webhook:</text>
+<text x="1728" y="1438" font-family="Segoe UI,DejaVu Sans,sans-serif" font-size="20" font-weight="400" fill="#52647a" text-anchor="start">fechar 443</text>
+<text x="1728" y="1471" font-family="Segoe UI,DejaVu Sans,sans-serif" font-size="20" font-weight="400" fill="#52647a" text-anchor="start">público também.</text>
+<rect x="50" y="1600" width="2400" height="200" rx="16" fill="#eaf0f7" stroke="#d2dce8" stroke-width="2"/>
+<text x="75" y="1640" font-family="Segoe UI,DejaVu Sans,sans-serif" font-size="24" font-weight="700" fill="#16283d" text-anchor="start">LEITURA E CORRESPONDÊNCIA COM O REPOSITÓRIO</text>
+<text x="75" y="1680" font-family="Segoe UI,DejaVu Sans,sans-serif" font-size="22" font-weight="400" fill="#16283d" text-anchor="start">01 é referência de risco: a baseline da auditoria usa CLI sem rede/portas. 02 é implementado pelo Compose do laboratório.</text>
+<text x="75" y="1716" font-family="Segoe UI,DejaVu Sans,sans-serif" font-size="22" font-weight="400" fill="#16283d" text-anchor="start">02 e 03 implantados na VPS Ubuntu de teste: 02 com SSH/UFW; 03 com WireGuard em 51820/udp e painel/SSH somente via wg0 (verification-vpn.json).</text>
+<text x="75" y="1752" font-family="Segoe UI,DejaVu Sans,sans-serif" font-size="22" font-weight="400" fill="#16283d" text-anchor="start">No teste local: HTTP 18080; painel HTTPS 18443; entrada exclusiva de webhook HTTPS 19443 — todos em 127.0.0.1.</text>
+<text x="75" y="1785" font-family="Segoe UI,DejaVu Sans,sans-serif" font-size="21" font-weight="400" fill="#52647a" text-anchor="start">UFW INPUT não basta para portas publicadas pelo Docker. O controle decisivo é não publicar n8n/PostgreSQL.</text>
+</svg>
